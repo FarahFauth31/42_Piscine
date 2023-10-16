@@ -27,6 +27,10 @@
 *.sql
 *.sqlite
 
+# Text files #
+##############
+*.txt
+
 # OS generated files #
 ######################
 .DS_Store
