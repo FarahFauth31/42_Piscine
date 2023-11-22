@@ -1,105 +1,69 @@
 #include <unistd.h>
+#include <stdio.h>
 
+#define TRUE 1
+#define FALSE 0
 
-#include <unistd.h>
-
-void	ft_l_if_func2(int i, int j, int k, int l)
+void	ft_putstr(int *str, int n)
 {
-    if (i != j && j != k && k != i && i < j && j < k)
+	int		i;
+	char	num;
+	int		display;
+
+	display = TRUE;
+	i = 1;
+	while (i < n)
 	{
-		write(1, &i, 1);
-		write(1, &j, 1);
-		write(1, &k, 1);
-		if (i == '7' && j == '8' && k == '9')
-		{
-		}
-		else
-		{
-			write(1, ", ", 2);
-		}
+		if (str[i - 1] >= str[i])
+			display = FALSE;
+		i++;
 	}
-	
+	if (display == TRUE)
+	{
+		i = -1;
+		while (++i < n)
+		{
+			num = str[i] + '0';
+			write(1, &num, 1);
+		}
+		if (str[0] < (10 - n))
+			write(1, ", ", 2);
+	}
 }
 
-void	ft_print_combn(void)
+void	ft_print_combn(int n)
 {
-	int	a;
-	int	b;
-	int	c;
-	int	d;
-    int e;
-    int f;
-    int g;
-    int h;
-    int i;
-    int j;
+	int	i;
+    int array[10];
+	int	positions;
 
-	a = '0';
-	while (a <= '9')
+	if (n > 10 || n <= 0)
+		return;
+	i = -1;
+	while (++i < n)
+		array[i] = i;
+	while (array[0] <= (10 - n) && n >= 1)
 	{
-		b = '0';
-		while (b <= '9')
+		ft_putstr(array, n);
+		if (n == 10)
+			return ;
+		array[n - 1]++;
+		positions = n - 1;
+		while (positions >= 0)
 		{
-			c = '0';
-			while (c <= '9')
+			if (array[positions] > 9)
 			{
-				d = '0';
-				while (d <= '9')
-                {
-                    e = '0';
-                    while (e <= '9')
-                    {
-                        f = '0';
-                        while (f <= '9')
-                        {
-                            g = '0';
-                            while (g <= '9')
-                            {
-                                h = '0';
-                                while (h <= '9')
-                                {
-                                    i = '0';
-                                    while (i <= '9')
-                                    {
-                                        j = '0';
-                                        while (j <= '9')
-                                        {
-                                            if (a != b && b != c && i != j && i < j)
-                                            {
-                                                write(1, &i, 1);
-                                                write(1, &j, 1);
-                                                if (i == '7' && j == '8')
-                                                {
-                                                }
-                                                else
-                                                {
-                                                    write(1, ", ", 2);
-                                                }
-                                            }
-                                            ++j;
-                                        }
-                                        ++i;
-                                    }
-                                    ++h;
-                                }
-                                ++g;
-                            }
-                            ++f;
-                        }
-                        ++e;
-                    }
-                    
-                    ++d;
-                }
-				++c;
+				array[positions - 1]++;
+				array[positions] = 0;
 			}
-			++b;
+			positions--;
 		}
-		++a;
 	}
+	return ;
 }
 
 int	main(void)
 {
-	ft_print_combn();
+	ft_print_combn(8);
+	return (0);
 }

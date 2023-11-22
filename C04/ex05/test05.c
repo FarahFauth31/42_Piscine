@@ -3,8 +3,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <unistd.h>
-
 int	ft_baselen(char *str)
 {
 	int	count;
@@ -58,14 +56,15 @@ int	ft_errors(char *base, int len)
 	while (base[str_count2] != '\0')
 	{
 		str_count = str_count2 + 1;
-		if (base[str_count2] == '+' || base[str_count2] == '-')
+		if (base[str_count2] == 32 || base[str_count2] == '\f'
+			|| base[str_count2] == '\n' || base[str_count2] == '\r'
+			|| base[str_count2] == '\t' || base[str_count2] == '\v'
+			|| base[str_count2] == '+' || base[str_count2] == '-')
 			return (1);
 		while (base[str_count] != '\0')
 		{
 			if (base[str_count2] == base[str_count])
-			{
 				return (1);
-			}
 			str_count++;
 		}
 		str_count2++;
@@ -103,13 +102,13 @@ int	ft_atoi_base(char *str, char *base)
 
 int	main(void)
 {
-	int	i;
+	int		i;
+	char	hexa[] = "0123456789ABCDEF";
+		char bi[] = "01";
+	char	str[] = "   \f\t-ADE4567";
 
-	char hexa[] = "0123456789ABCDEF";
-/* 	char dec[] = "0123456789";
-	char bi[] = "01";
-	char oct[] = "poniguay"; */
-	char str[] = "   \f\t-ADE45678";
+	/* 	char dec[] = "0123456789";
+		char oct[] = "poniguay"; */
 	i = ft_atoi_base(str, hexa);
 	printf("%d\n", i);
 }

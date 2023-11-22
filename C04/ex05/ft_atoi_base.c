@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 10:29:38 by ffauth-p          #+#    #+#             */
-/*   Updated: 2023/10/05 11:54:53 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:34:47 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,15 @@ int	ft_errors(char *base, int len)
 	while (base[str_count2] != '\0')
 	{
 		str_count = str_count2 + 1;
-		if (base[str_count2] == '+' || base[str_count2] == '-')
+		if (base[str_count2] == 32 || base[str_count2] == '\f'
+			|| base[str_count2] == '\n' || base[str_count2] == '\r'
+			|| base[str_count2] == '\t' || base[str_count2] == '\v'
+			|| base[str_count2] == '+' || base[str_count2] == '-')
 			return (1);
 		while (base[str_count] != '\0')
 		{
 			if (base[str_count2] == base[str_count])
-			{
 				return (1);
-			}
 			str_count++;
 		}
 		str_count2++;

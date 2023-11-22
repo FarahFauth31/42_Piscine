@@ -1,6 +1,7 @@
 #include "ft_stock_str.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int	ft_strlen(char *str)
 {
@@ -15,6 +16,24 @@ int	ft_strlen(char *str)
 	return (count);
 }
 
+char	*ft_strdup(char *src, int strlen)
+{
+	int		count;
+	char	*dest;
+
+	count = 0;
+	dest = (char *) malloc ((strlen + 1) * sizeof(char));
+	if (!dest)
+		return (NULL);
+	while (src[count] != '\0')
+	{
+		dest[count] = src[count];
+		count++;
+	}
+	dest[count] = '\0';
+	return (dest);
+}
+
 struct	s_stock_str	*ft_strs_to_tab(int ac, char **av)
 {
 	int			i;
@@ -22,43 +41,35 @@ struct	s_stock_str	*ft_strs_to_tab(int ac, char **av)
 
 	tab = (t_stock_str *) malloc ((ac + 1) * sizeof(t_stock_str));
 	if (!tab)
-	{
-		free(tab);
-		tab = NULL;
-		return (tab);
-	}
+		return (NULL);
 	i = 0;
 	while (i < ac)
 	{
 		tab[i].size = ft_strlen(av[i]);
-		tab[i].str = av[i];
-		tab[i].copy = av[i];
+		tab[i].str = ft_strdup(av[i], tab[i].size);
+		tab[i].copy = ft_strdup(av[i], tab[i].size);
 		i++;
 	}
-	tab[i].size = 1;
+	tab[i].size = 0;
 	tab[i].str = 0;
 	tab[i].copy = 0;
 	return (tab);
 }
 
-int	main(void)
+int	main(int a, char **argv)
 {
 	int				ac;
-	char			**av;
 	t_stock_str		*tab;
 	int				i;
 
-	av[0] = "hola";
-	av[1] = "pablo";
-	av[2] = "guapo";
-	ac = 3;
-	tab = ft_strs_to_tab(ac, av);
+	ac = a - 1;
+	argv = argv + 1;
+	tab = ft_strs_to_tab(ac, argv);
 	i = 0;
-	while (i <= ac)
+	for (i = 0; i <= ac; i++)
 	{
-		printf("%d\n", tab[i].size);
-		printf("%s\n", tab[i].str);
-		printf("%s\n", tab[i].copy);
-		i++;
+		printf("%d \n", tab[i].size);
+		printf("%s \n", tab[i].str);
+		printf("%s \n", tab[i].copy);
 	}
 }
